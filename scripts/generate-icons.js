@@ -10,7 +10,7 @@ if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-sizes.forEach(size => {
+sizes.forEach((size) => {
   const canvas = createCanvas(size, size);
   const ctx = canvas.getContext('2d');
 

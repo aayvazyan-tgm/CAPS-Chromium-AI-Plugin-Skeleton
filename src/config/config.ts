@@ -4,15 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load saved settings
   chrome.storage.sync.get(['enableFeature'], (result) => {
     if (checkbox && result.enableFeature !== undefined) {
-      checkbox.checked = result.enableFeature;
+      checkbox.checked = result.enableFeature as boolean;
     }
   });
 
   // Save settings on change
   if (checkbox) {
     checkbox.addEventListener('change', () => {
-      chrome.storage.sync.set({
-        enableFeature: checkbox.checked
+      void chrome.storage.sync.set({
+        enableFeature: checkbox.checked,
       });
     });
   }
