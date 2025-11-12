@@ -78,19 +78,14 @@ This will:
 2. Launch Chrome with the extension pre-loaded
 3. Display the extension ID and URLs in the console
 
-For production build testing:
-```bash
-npm run start:prod
-```
-
 Press `Ctrl+C` to stop the browser when done.
 
 ### Build Commands
 
 - **Production build**: `npm run build`
 - **Development build with watch**: `npm run dev`
+- **Development build once**: `npm run dev:once`
 - **Quick start with browser**: `npm start` (builds + launches Chrome)
-- **Start with production build**: `npm run start:prod`
 - **Clean build directory**: `npm run clean`
 
 ### Loading the Extension Manually in Chrome

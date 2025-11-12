@@ -12,7 +12,7 @@ echo "🧪 Running unit tests..."
 npm test
 
 # Start E2E tests
-echo "🎭 Running E2E tests (headed mode)..."
-npm run test:e2e:headed
+echo "🎭 Running E2E tests..."
+npm run test:e2e
 
 echo "✅ All tests completed!"
