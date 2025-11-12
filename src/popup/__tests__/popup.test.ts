@@ -23,8 +23,8 @@ describe('Popup', () => {
     expect(button?.textContent).toBe('Open Configuration');
   });
 
-  it('should open config page when button clicked', () => {
-    require('../popup');
+  it('should open config page when button clicked', async () => {
+    await import('../popup');
 
     // Trigger DOMContentLoaded
     const event = new Event('DOMContentLoaded');
