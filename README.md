@@ -65,13 +65,35 @@ npm run build
 
 ## Development
 
+### Quick Start
+
+The easiest way to test your extension:
+
+```bash
+npm start
+```
+
+This will:
+1. Build the extension in development mode
+2. Launch Chrome with the extension pre-loaded
+3. Display the extension ID and URLs in the console
+
+For production build testing:
+```bash
+npm run start:prod
+```
+
+Press `Ctrl+C` to stop the browser when done.
+
 ### Build Commands
 
 - **Production build**: `npm run build`
 - **Development build with watch**: `npm run dev`
+- **Quick start with browser**: `npm start` (builds + launches Chrome)
+- **Start with production build**: `npm run start:prod`
 - **Clean build directory**: `npm run clean`
 
-### Loading the Extension in Chrome
+### Loading the Extension Manually in Chrome
 
 1. Build the extension:
    ```bash
@@ -108,6 +130,7 @@ npm run build
 
 The `scripts/` directory contains helper scripts:
 
+- `start-browser.js` - Launches Chrome with the extension loaded using Playwright
 - `generate-icons.js` - Generates placeholder icons for the extension
 - `generate-store-assets.js` - Generates Chrome Web Store promotional images
 
