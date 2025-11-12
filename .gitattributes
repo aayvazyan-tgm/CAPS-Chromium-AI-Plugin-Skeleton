@@ -1,0 +1,14 @@
+# Set default behavior to automatically normalize line endings to LF
+* text=auto eol=lf
+
+# Ensure these are always LF
+*.ts text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.md text eol=lf
+
+# Windows-specific files can use CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
