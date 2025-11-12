@@ -16,6 +16,13 @@ module.exports = [
       '.nyc_output/',
       '*.md',
       '*.log',
+      '**/__tests__/**',
+      '**/*.test.ts',
+      '**/*.spec.ts',
+      'src/test-setup.ts',
+      'e2e/**',
+      'playwright-report/',
+      'test-results/',
     ],
   },
   {
