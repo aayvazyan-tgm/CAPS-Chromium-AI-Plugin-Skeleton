@@ -7,10 +7,10 @@ const assets = [
   { name: 'screenshot-640x400', width: 640, height: 400, dir: 'screenshots' },
   { name: 'small-tile-440x280', width: 440, height: 280, dir: 'promotional' },
   { name: 'large-tile-920x680', width: 920, height: 680, dir: 'promotional' },
-  { name: 'marquee-1400x560', width: 1400, height: 560, dir: 'promotional' }
+  { name: 'marquee-1400x560', width: 1400, height: 560, dir: 'promotional' },
 ];
 
-assets.forEach(asset => {
+assets.forEach((asset) => {
   const outputDir = path.join(__dirname, '..', 'store-assets', asset.dir);
 
   // Ensure output directory exists
@@ -42,12 +42,20 @@ assets.forEach(asset => {
 
   // Draw subtitle
   ctx.font = `${Math.floor(asset.height * 0.08)}px Arial`;
-  ctx.fillText('Chrome Extension Skeleton', asset.width / 2, asset.height / 2 + asset.height * 0.05);
+  ctx.fillText(
+    'Chrome Extension Skeleton',
+    asset.width / 2,
+    asset.height / 2 + asset.height * 0.05,
+  );
 
   // Draw dimension label
   ctx.font = `${Math.floor(asset.height * 0.06)}px Arial`;
   ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-  ctx.fillText(`${asset.width}x${asset.height}`, asset.width / 2, asset.height / 2 + asset.height * 0.15);
+  ctx.fillText(
+    `${asset.width}x${asset.height}`,
+    asset.width / 2,
+    asset.height / 2 + asset.height * 0.15,
+  );
 
   // Save to file
   const buffer = canvas.toBuffer('image/png');
