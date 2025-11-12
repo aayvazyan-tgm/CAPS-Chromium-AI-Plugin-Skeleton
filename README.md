@@ -130,7 +130,7 @@ Press `Ctrl+C` to stop the browser when done.
 
 The `scripts/` directory contains helper scripts:
 
-- `start-browser.js` - Launches Chrome directly with the extension pre-loaded
+- `start-browser.js` - Launches Chrome with the extension loaded using Playwright
 - `generate-icons.js` - Generates placeholder icons for the extension
 - `generate-store-assets.js` - Generates Chrome Web Store promotional images
 
