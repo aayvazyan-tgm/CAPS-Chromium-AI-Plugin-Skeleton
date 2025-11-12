@@ -88,13 +88,13 @@ test.describe('Chrome Extension E2E Tests', () => {
     const popup = await context.newPage();
     await popup.goto(`chrome-extension://${extensionId}/popup/popup.html`);
 
-    // Click to open config
-    await popup.click('#openConfig');
+    // Click to open config and wait for new page
+    const [newPage] = await Promise.all([context.waitForEvent('page'), popup.click('#openConfig')]);
 
-    // Wait a bit for the new page
-    await popup.waitForTimeout(1000);
+    // Wait for the new page to load
+    await newPage.waitForLoadState('networkidle');
 
-    // Should have at least 2 pages now
+    // Should have at least 2 pages now (initial popup page tracked + new config page)
     expect(pages.length).toBeGreaterThanOrEqual(1);
   });
 });
