@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (button) {
     button.addEventListener('click', () => {
       // Open configuration page in new tab
-      chrome.tabs.create({
-        url: chrome.runtime.getURL('config/config.html')
+      void chrome.tabs.create({
+        url: chrome.runtime.getURL('config/config.html'),
       });
     });
   }

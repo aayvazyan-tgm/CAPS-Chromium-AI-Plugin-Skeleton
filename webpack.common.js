@@ -5,30 +5,30 @@ module.exports = {
   entry: {
     'popup/popup': './src/popup/popup.ts',
     'config/config': './src/config/config.ts',
-    'background/background': './src/background/background.ts'
+    'background/background': './src/background/background.ts',
   },
   module: {
     rules: [
       {
         test: /\.ts$/,
         use: 'ts-loader',
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
-    clean: true
+    clean: true,
   },
   optimization: {
     // Important: Don't split chunks for extension
     splitChunks: false,
     // Important for Manifest V3 service workers
-    runtimeChunk: false
+    runtimeChunk: false,
   },
   plugins: [
     new CopyWebpackPlugin({
@@ -38,8 +38,8 @@ module.exports = {
         { from: 'src/popup/popup.css', to: 'popup/popup.css' },
         { from: 'src/config/config.html', to: 'config/config.html' },
         { from: 'src/config/config.css', to: 'config/config.css' },
-        { from: 'assets/icons', to: 'icons' }
-      ]
-    })
-  ]
+        { from: 'assets/icons', to: 'icons' },
+      ],
+    }),
+  ],
 };
