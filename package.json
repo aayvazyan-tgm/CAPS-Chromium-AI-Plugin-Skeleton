@@ -5,6 +5,8 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack --config webpack.dev.js",
+    "start": "npm run dev && node scripts/start-browser.js",
+    "start:prod": "npm run build && node scripts/start-browser.js",
     "clean": "rm -rf dist coverage playwright-report test-results",
     "lint": "eslint 'src/**/*.ts' --max-warnings=0",
     "lint:fix": "eslint 'src/**/*.ts' --fix",
