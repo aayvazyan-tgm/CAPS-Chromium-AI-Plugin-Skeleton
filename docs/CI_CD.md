@@ -34,17 +34,16 @@ This project uses GitHub Actions for continuous integration and deployment.
 
 ```bash
 npm test                # Run once
-npm run test:watch      # Watch mode
+jest --watch            # Watch mode (via jest directly)
 npm run test:coverage   # With coverage
 ```
 
 ### E2E Tests
 
 ```bash
-npm run test:e2e          # Headless
-npm run test:e2e:headed   # With browser UI
-npm run test:e2e:debug    # Debug mode
-npm run test:e2e:ui       # Playwright UI mode
+npm run test:e2e          # Headless (default)
+npm run test:e2e:debug    # Debug mode with browser UI
+npm run test:e2e:ui       # Playwright UI mode (interactive)
 ```
 
 ## Debugging E2E Tests
@@ -95,7 +94,7 @@ npm run check
 npm run build
 
 # Run E2E tests
-npm run test:e2e:headed
+npm run test:e2e
 ```
 
 2. **Push to GitHub:**
@@ -114,8 +113,8 @@ git push origin develop
 
 ## Notes for Developers
 
-- Always run `npm run ci` before pushing
+- Always run `npm run check` before pushing (runs type-check, lint, format-check, and tests)
 - E2E tests require built extension in `dist/`
-- Use Playwright UI mode for debugging tests
+- Use Playwright UI mode (`npm run test:e2e:ui`) for debugging tests
 - Keep test fixtures updated with extension changes
 - Monitor CI build times and optimize if needed
