@@ -13,46 +13,26 @@ const fs = require('fs');
       process.exit(1);
     }
 
-    console.log('Starting Chrome with extension loaded...');
+    console.log('Starting Chromium with extension loaded...');
     console.log(`Extension path: ${pathToExtension}`);
 
     // Create a temporary user data directory
     const userDataDir = path.join(os.tmpdir(), `chrome-extension-test-${Date.now()}`);
 
-    // Try to launch with Chrome channel first, fall back to Chromium if it fails
-    let context;
-    try {
-      console.log('Attempting to launch Chrome...');
-      context = await chromium.launchPersistentContext(userDataDir, {
-        headless: false, // Extensions only work in headed mode
-        args: [
-          `--disable-extensions-except=${pathToExtension}`,
-          `--load-extension=${pathToExtension}`,
-          '--no-first-run',
-          '--no-default-browser-check',
-        ],
-        channel: 'chrome',
-      });
-      console.log('✓ Chrome launched successfully');
-    } catch (error) {
-      console.log('Chrome not found, trying Chromium...');
-      try {
-        context = await chromium.launchPersistentContext(userDataDir, {
-          headless: false,
-          args: [
-            `--disable-extensions-except=${pathToExtension}`,
-            `--load-extension=${pathToExtension}`,
-            '--no-first-run',
-            '--no-default-browser-check',
-          ],
-        });
-        console.log('✓ Chromium launched successfully');
-      } catch (chromiumError) {
-        console.error('Failed to launch browser. Please install Chrome or run:');
-        console.error('  npx playwright install chromium');
-        process.exit(1);
-      }
-    }
+    console.log('Launching Chromium with Playwright...');
+
+    // Launch using Playwright's bundled Chromium
+    const context = await chromium.launchPersistentContext(userDataDir, {
+      headless: false, // Extensions only work in headed mode
+      args: [
+        `--disable-extensions-except=${pathToExtension}`,
+        `--load-extension=${pathToExtension}`,
+        '--no-first-run',
+        '--no-default-browser-check',
+      ],
+    });
+
+    console.log('✓ Chromium launched successfully');
 
     console.log('\n✓ Browser started successfully!');
     console.log('✓ Extension is loaded and ready for testing.');

@@ -75,7 +75,7 @@ npm start
 
 This will:
 1. Build the extension in development mode
-2. Launch Chrome with the extension pre-loaded
+2. Launch Chromium with the extension pre-loaded (via Playwright)
 3. Display the extension ID and URLs in the console
 
 Press `Ctrl+C` to stop the browser when done.
@@ -85,7 +85,7 @@ Press `Ctrl+C` to stop the browser when done.
 - **Production build**: `npm run build`
 - **Development build with watch**: `npm run dev`
 - **Development build once**: `npm run dev:once`
-- **Quick start with browser**: `npm start` (builds + launches Chrome)
+- **Quick start with browser**: `npm start` (builds + launches Chromium)
 - **Clean build directory**: `npm run clean`
 
 ### Loading the Extension Manually in Chrome
@@ -125,7 +125,7 @@ Press `Ctrl+C` to stop the browser when done.
 
 The `scripts/` directory contains helper scripts:
 
-- `start-browser.js` - Launches Chrome with the extension loaded using Playwright
+- `start-browser.js` - Launches Chromium with the extension loaded using Playwright
 - `generate-icons.js` - Generates placeholder icons for the extension
 - `generate-store-assets.js` - Generates Chrome Web Store promotional images
 
