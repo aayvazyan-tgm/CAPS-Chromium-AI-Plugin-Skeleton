@@ -6,14 +6,14 @@ describe('Background Service Worker', () => {
     jest.resetModules();
   });
 
-  it('should register onInstalled listener', () => {
-    require('../background');
+  it('should register onInstalled listener', async () => {
+    await import('../background');
 
     expect(chrome.runtime.onInstalled.addListener).toHaveBeenCalled();
   });
 
-  it('should set default settings on install', () => {
-    require('../background');
+  it('should set default settings on install', async () => {
+    await import('../background');
 
     const addListenerMock = chrome.runtime.onInstalled.addListener as jest.Mock;
     expect(addListenerMock).toHaveBeenCalled();
@@ -26,8 +26,8 @@ describe('Background Service Worker', () => {
     });
   });
 
-  it('should handle update events without errors', () => {
-    require('../background');
+  it('should handle update events without errors', async () => {
+    await import('../background');
 
     const addListenerMock = chrome.runtime.onInstalled.addListener as jest.Mock;
     expect(addListenerMock).toHaveBeenCalled();
