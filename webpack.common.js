@@ -12,7 +12,14 @@ module.exports = {
       {
         test: /\.ts$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        exclude: [
+          /node_modules/,
+          /\.test\.ts$/,
+          /\.spec\.ts$/,
+          /__tests__/,
+          /test-setup\.ts$/,
+          /e2e/,
+        ],
       },
     ],
   },
