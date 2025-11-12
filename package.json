@@ -22,7 +22,7 @@
     "test:e2e:ui": "playwright test --ui",
     "check": "npm run type-check && npm run lint && npm run format:check && npm test",
     "ci": "npm run check && npm run build && npm run test:e2e",
-    "prepare": "husky install",
+    "prepare": "husky",
     "pre-commit": "lint-staged"
   },
   "keywords": [
