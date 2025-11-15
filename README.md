@@ -8,9 +8,9 @@ A TypeScript-based Chrome extension with Webpack build system, featuring a "Hell
 - **Webpack 5** for bundling
 - **Manifest V3** for modern Chrome extension API
 - **Popup UI** with "Hello World" message
-- **Configuration Page** with settings management
+- **Options Page** with settings management (standard Chrome pattern)
 - **Background Service Worker** for extension lifecycle management
-- **Chrome Storage API** integration
+- **Chrome Storage API** integration for persistent settings
 
 ## Project Structure
 
@@ -21,10 +21,10 @@ chrome-extension-skeleton/
 │   │   ├── popup.html
 │   │   ├── popup.ts
 │   │   └── popup.css
-│   ├── config/             # Configuration page
-│   │   ├── config.html
-│   │   ├── config.ts
-│   │   └── config.css
+│   ├── options/            # Options/settings page
+│   │   ├── options.html
+│   │   ├── options.ts
+│   │   └── options.css
 │   ├── background/         # Background service worker
 │   │   └── background.ts
 │   └── manifest.json       # Extension manifest
@@ -109,25 +109,24 @@ Press `Ctrl+C` to stop the browser when done.
 
 1. **Test Popup**:
    - Click the extension icon in the toolbar
-   - You should see "Hello World" with a button
+   - You should see "Hello World" message
 
-2. **Test Configuration Page**:
-   - Click the "Open Configuration" button in the popup
-   - A new tab should open with the configuration page
+2. **Test Options Page**:
+   - Right-click the extension icon and select "Options"
+   - OR go to chrome://extensions/, find the extension, and click "Extension options"
    - Toggle the "Enable awesome feature" checkbox
    - Settings are automatically saved to Chrome storage
 
 3. **Test Background Worker**:
-   - Open Chrome DevTools for the extension (chrome://extensions/ > Details > "service worker")
-   - Check console logs for "Background service worker started"
+   - Go to chrome://extensions/ > find your extension > click "service worker"
+   - Check console logs in the DevTools that opens
 
 ## Scripts
 
 The `scripts/` directory contains helper scripts:
 
 - `start-browser.js` - Launches Chromium with the extension loaded using Playwright
-- `generate-icons.js` - Generates placeholder icons for the extension
-- `generate-store-assets.js` - Generates Chrome Web Store promotional images
+- `test-extension-locally.sh` - Runs full test suite (build, unit tests, E2E tests)
 
 ## Configuration
 
@@ -157,14 +156,15 @@ This extension uses Chrome's latest Manifest V3 format:
 
 The popup appears when clicking the extension icon, displaying:
 - Hello World message
-- Button to open configuration page
+- Instructions for accessing options
 
-### Configuration Page
+### Options Page
 
-Full-page configuration interface with:
-- Settings management
+Standard Chrome extension options page (accessible via right-click menu):
+- Settings management with example checkbox
 - Chrome storage sync integration
 - Persistent settings across devices
+- Opens in a full tab for easy configuration
 
 ### Background Service Worker
 
@@ -202,12 +202,33 @@ cd ..
 - Chromium-based browsers (Edge, Brave, etc.)
 - Manifest V3 required
 
-## Next Steps
+## Adapting This Skeleton
 
-After completing this foundation:
+This skeleton provides a solid foundation. Here's how to customize it:
 
-1. **Ticket 2**: Add ESLint, Prettier, and Husky for code quality
-2. **Ticket 3**: Set up GitHub Actions CI/CD and Playwright E2E tests
+1. **Update branding**: Change "Hello World Extension" to your extension name in:
+   - `src/manifest.json` (name, description)
+   - `src/popup/popup.html`
+   - `src/options/options.html`
+   - `package.json`
+
+2. **Add functionality**:
+   - Extend `src/popup/popup.ts` with your popup logic
+   - Add settings in `src/options/options.html` and `src/options/options.ts`
+   - Implement background logic in `src/background/background.ts`
+
+3. **Add permissions**: Update `manifest.json` permissions array as needed:
+   - `"tabs"` - for tab manipulation
+   - `"activeTab"` - for current tab access
+   - `"webNavigation"` - for navigation events
+   - Add host_permissions for specific websites
+
+4. **Add content scripts**: Create content scripts for page interaction:
+   - Add files in `src/content/`
+   - Register in `manifest.json` under `"content_scripts"`
+   - Update webpack.common.js entry points
+
+5. **Replace icons**: Update placeholder icons in `assets/icons/` with your design
 
 ## License
 
@@ -215,6 +236,7 @@ UNLICENSED - All rights reserved
 
 ## Notes
 
-- Icons are generated placeholders - replace with actual design assets
-- Store assets are placeholders for Chrome Web Store listing
-- Storage permissions are enabled but can be customized in manifest.json
+- Icons are placeholders - replace with your actual design assets
+- The `storage` permission is included for the options page functionality
+- Tests are fully configured - update them as you add features
+- CI/CD is configured in `.github/workflows/` for automated testing

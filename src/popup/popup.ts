@@ -1,15 +1,11 @@
-// Wait for DOM to be ready
+// Simple popup script - extend with your own functionality
 document.addEventListener('DOMContentLoaded', () => {
-  const button = document.getElementById('openConfig');
-
-  if (button) {
-    button.addEventListener('click', () => {
-      // Open configuration page in new tab
-      void chrome.tabs.create({
-        url: chrome.runtime.getURL('config/config.html'),
-      });
-    });
-  }
+  // Add your popup logic here
+  // Examples:
+  // - Display data from chrome.storage
+  // - Send messages to background script
+  // - Update UI based on current tab
+  // - Interact with DOM elements
 });
 
 export {};
