@@ -40,7 +40,7 @@ jobs:
           test -f dist/manifest.json
           test -f dist/popup/popup.js
           test -f dist/background/background.js
-          test -f dist/config/config.js
+          test -f dist/options/options.js
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v5
