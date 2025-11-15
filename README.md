@@ -1,242 +1,160 @@
-# Chrome Extension Skeleton
+# Chrome Extension Skeleton 🚀
 
-A TypeScript-based Chrome extension with Webpack build system, featuring a "Hello World" popup and configuration page.
+A production-ready Chrome Extension V3 starter with TypeScript, automated testing, and CI/CD.
 
-## Features
+## Why This Skeleton? ✨
 
-- **TypeScript** for type-safe code
-- **Webpack 5** for bundling
-- **Manifest V3** for modern Chrome extension API
-- **Popup UI** with "Hello World" message
-- **Options Page** with settings management (standard Chrome pattern)
-- **Background Service Worker** for extension lifecycle management
-- **Chrome Storage API** integration for persistent settings
+**🤖 AI-Friendly Codebase**
+- Clean, well-structured TypeScript code that AI tools understand instantly
+- Consistent patterns and clear separation of concerns
+- Comprehensive tooling setup with ESLint, Prettier, and Husky
+
+**🧪 Automated E2E Testing**
+- Playwright tests that run your extension in a real Chrome browser
+- GitHub Actions CI/CD pipeline with build verification, linting, unit tests, and E2E tests
+- Pre-configured test scripts for local and CI environments
+
+**⚡ Simple Manifest V3 Example**
+- Modern Chrome Extension API with service workers
+- Minimal "Hello World" implementation that's easy to understand and extend
+- Working examples of popup, options page, and background worker
+
+**🔧 Ready-to-Use NPM Scripts**
+```bash
+npm start           # Build + launch Chrome with extension loaded
+npm run build       # Production build
+npm run dev         # Development build with watch mode
+npm test            # Run unit tests
+npm run test:e2e    # Run E2E tests in Chrome
+npm run check       # Type-check, lint, format, and test
+```
+
+**📦 Complete TypeScript Setup**
+- Strict TypeScript configuration with Chrome types
+- Webpack 5 bundling with source maps
+- Development and production builds optimized
+
+**⚙️ GitHub Actions Workflows**
+- Automated build verification on every push/PR
+- Parallel jobs for linting, testing, and E2E tests
+- Automatic release artifact generation on main branch
+
+## Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Launch Chrome with extension loaded
+npm start
+```
+
+That's it! Chrome will open with your extension installed. Click the extension icon to see the popup.
 
 ## Project Structure
 
 ```
-chrome-extension-skeleton/
-├── src/
-│   ├── popup/              # Extension popup
-│   │   ├── popup.html
-│   │   ├── popup.ts
-│   │   └── popup.css
-│   ├── options/            # Options/settings page
-│   │   ├── options.html
-│   │   ├── options.ts
-│   │   └── options.css
-│   ├── background/         # Background service worker
-│   │   └── background.ts
-│   └── manifest.json       # Extension manifest
-├── assets/
-│   └── icons/              # Extension icons
-├── store-assets/           # Chrome Web Store assets
-│   ├── screenshots/
-│   └── promotional/
-├── scripts/                # Build helper scripts
-├── webpack.common.js       # Shared webpack config
-├── webpack.dev.js          # Development config
-├── webpack.prod.js         # Production config
-└── tsconfig.json           # TypeScript config
+src/
+├── popup/              # Extension popup UI
+│   ├── popup.html
+│   ├── popup.ts
+│   └── popup.css
+├── options/            # Settings/options page
+│   ├── options.html
+│   ├── options.ts
+│   └── options.css
+├── background/         # Service worker
+│   └── background.ts
+└── manifest.json       # Extension manifest (V3)
 ```
 
-## Prerequisites
+## Development Workflow
 
-- Node.js 18 or higher
-- npm
-
-## Installation
-
-1. Clone the repository:
+### 1. Start Development
 ```bash
-git clone <repository-url>
-cd ChromeExtensionSkeletton
+npm run dev          # Auto-rebuild on file changes
 ```
 
-2. Install dependencies:
+### 2. Test Locally
 ```bash
-npm install
+npm start            # Build + launch Chrome
+npm test             # Run unit tests
+npm run test:e2e     # Run E2E tests
 ```
 
-3. Build the extension:
+### 3. Check Quality
 ```bash
-npm run build
+npm run check        # Run all checks (types, lint, format, tests)
 ```
 
-## Development
-
-### Quick Start
-
-The easiest way to test your extension:
-
+### 4. Build for Production
 ```bash
-npm start
+npm run build        # Creates optimized build in dist/
 ```
 
-This will:
-1. Build the extension in development mode
-2. Launch Chromium with the extension pre-loaded (via Playwright)
-3. Display the extension ID and URLs in the console
+## Loading Extension Manually
 
-Press `Ctrl+C` to stop the browser when done.
+1. Build: `npm run build`
+2. Open `chrome://extensions/`
+3. Enable "Developer mode"
+4. Click "Load unpacked" → select `dist/` folder
 
-### Build Commands
+## NPM Scripts Reference
 
-- **Production build**: `npm run build`
-- **Development build with watch**: `npm run dev`
-- **Development build once**: `npm run dev:once`
-- **Quick start with browser**: `npm start` (builds + launches Chromium)
-- **Clean build directory**: `npm run clean`
+| Command | Description |
+|---------|-------------|
+| `npm start` | Build and launch Chrome with extension |
+| `npm run build` | Production build with minification |
+| `npm run dev` | Development build with watch mode |
+| `npm run dev:once` | Single development build |
+| `npm test` | Run Jest unit tests |
+| `npm run test:coverage` | Run tests with coverage report |
+| `npm run test:e2e` | Run Playwright E2E tests |
+| `npm run test:e2e:debug` | Debug E2E tests interactively |
+| `npm run test:e2e:ui` | Run E2E tests in UI mode |
+| `npm run type-check` | Check TypeScript types |
+| `npm run lint` | Run ESLint |
+| `npm run lint:fix` | Auto-fix ESLint issues |
+| `npm run format` | Format code with Prettier |
+| `npm run format:check` | Check code formatting |
+| `npm run check` | Run all quality checks |
+| `npm run clean` | Remove build artifacts |
 
-### Loading the Extension Manually in Chrome
+## CI/CD Pipeline
 
-1. Build the extension:
-   ```bash
-   npm run build
-   ```
+The GitHub Actions workflow (`.github/workflows/ci-combined.yml`) runs on every push and PR:
 
-2. Open Chrome and navigate to `chrome://extensions/`
+1. **Build Job** - Compiles extension and verifies output files
+2. **Verify Job** - Runs TypeScript checks, ESLint, Prettier, and unit tests
+3. **E2E Job** - Runs Playwright tests in Chrome
+4. **Release Job** - Creates release artifact on main branch
 
-3. Enable "Developer mode" (toggle in top right)
+All jobs run in parallel for fast feedback.
 
-4. Click "Load unpacked"
-
-5. Select the `dist` folder from this project
-
-6. The extension icon should appear in your browser toolbar
-
-### Testing the Extension
-
-1. **Test Popup**:
-   - Click the extension icon in the toolbar
-   - You should see "Hello World" message
-
-2. **Test Options Page**:
-   - Right-click the extension icon and select "Options"
-   - OR go to chrome://extensions/, find the extension, and click "Extension options"
-   - Toggle the "Enable awesome feature" checkbox
-   - Settings are automatically saved to Chrome storage
-
-3. **Test Background Worker**:
-   - Go to chrome://extensions/ > find your extension > click "service worker"
-   - Check console logs in the DevTools that opens
-
-## Scripts
-
-The `scripts/` directory contains helper scripts:
-
-- `start-browser.js` - Launches Chromium with the extension loaded using Playwright
-- `test-extension-locally.sh` - Runs full test suite (build, unit tests, E2E tests)
-
-## Configuration
-
-### TypeScript Configuration
-
-TypeScript settings are in `tsconfig.json`. Key settings:
-- Strict mode enabled
-- Target: ES6
-- Chrome types included
-
-### Webpack Configuration
-
-- `webpack.common.js` - Shared configuration
-- `webpack.dev.js` - Development mode with source maps and watch mode
-- `webpack.prod.js` - Production mode with minification
-
-## Chrome Extension Features
-
-### Manifest V3
-
-This extension uses Chrome's latest Manifest V3 format:
-- Background service worker instead of persistent background page
-- Improved security and performance
-- Modern extension APIs
+## Extension Features
 
 ### Popup
-
-The popup appears when clicking the extension icon, displaying:
-- Hello World message
-- Instructions for accessing options
+Click the extension icon to see a simple "Hello World" popup with instructions.
 
 ### Options Page
-
-Standard Chrome extension options page (accessible via right-click menu):
-- Settings management with example checkbox
-- Chrome storage sync integration
-- Persistent settings across devices
-- Opens in a full tab for easy configuration
+Right-click the extension icon → "Options" to access the settings page with Chrome storage sync.
 
 ### Background Service Worker
+Handles extension lifecycle events, installation, and default settings initialization.
 
-Handles extension lifecycle:
-- Installation/update detection
-- Default settings initialization
-- Message handling
+## Customizing for Your Extension
 
-## Building for Production
+1. **Update branding** in `manifest.json`, `package.json`, and HTML files
+2. **Add functionality** in `src/popup/`, `src/options/`, `src/background/`
+3. **Add permissions** in `manifest.json` as needed (`tabs`, `activeTab`, etc.)
+4. **Add content scripts** - create `src/content/` and register in `manifest.json`
+5. **Replace icons** in `assets/icons/` with your design
 
-1. Build the extension:
-```bash
-npm run build
-```
+## Requirements
 
-2. The `dist/` folder contains the complete extension
-
-3. To create a ZIP file for Chrome Web Store:
-```bash
-cd dist
-zip -r ../extension.zip .
-cd ..
-```
-
-## Development Tips
-
-- Use `npm run dev` for automatic rebuilds during development
-- Check Chrome DevTools for TypeScript source maps
-- Monitor the service worker console for background script logs
-- Test in Incognito mode to verify extension behavior with fresh state
-
-## Browser Compatibility
-
-- Chrome 88+
-- Chromium-based browsers (Edge, Brave, etc.)
-- Manifest V3 required
-
-## Adapting This Skeleton
-
-This skeleton provides a solid foundation. Here's how to customize it:
-
-1. **Update branding**: Change "Hello World Extension" to your extension name in:
-   - `src/manifest.json` (name, description)
-   - `src/popup/popup.html`
-   - `src/options/options.html`
-   - `package.json`
-
-2. **Add functionality**:
-   - Extend `src/popup/popup.ts` with your popup logic
-   - Add settings in `src/options/options.html` and `src/options/options.ts`
-   - Implement background logic in `src/background/background.ts`
-
-3. **Add permissions**: Update `manifest.json` permissions array as needed:
-   - `"tabs"` - for tab manipulation
-   - `"activeTab"` - for current tab access
-   - `"webNavigation"` - for navigation events
-   - Add host_permissions for specific websites
-
-4. **Add content scripts**: Create content scripts for page interaction:
-   - Add files in `src/content/`
-   - Register in `manifest.json` under `"content_scripts"`
-   - Update webpack.common.js entry points
-
-5. **Replace icons**: Update placeholder icons in `assets/icons/` with your design
+- Node.js 18+
+- Chrome 88+ or Chromium-based browser
 
 ## License
 
 UNLICENSED - All rights reserved
-
-## Notes
-
-- Icons are placeholders - replace with your actual design assets
-- The `storage` permission is included for the options page functionality
-- Tests are fully configured - update them as you add features
-- CI/CD is configured in `.github/workflows/` for automated testing
