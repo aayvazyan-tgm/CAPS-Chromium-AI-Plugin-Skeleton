@@ -4,7 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: {
     'popup/popup': './src/popup/popup.ts',
-    'config/config': './src/config/config.ts',
+    'options/options': './src/options/options.ts',
     'background/background': './src/background/background.ts',
   },
   module: {
@@ -43,8 +43,8 @@ module.exports = {
         { from: 'src/manifest.json', to: 'manifest.json' },
         { from: 'src/popup/popup.html', to: 'popup/popup.html' },
         { from: 'src/popup/popup.css', to: 'popup/popup.css' },
-        { from: 'src/config/config.html', to: 'config/config.html' },
-        { from: 'src/config/config.css', to: 'config/config.css' },
+        { from: 'src/options/options.html', to: 'options/options.html' },
+        { from: 'src/options/options.css', to: 'options/options.css' },
         { from: 'assets/icons', to: 'icons' },
       ],
     }),

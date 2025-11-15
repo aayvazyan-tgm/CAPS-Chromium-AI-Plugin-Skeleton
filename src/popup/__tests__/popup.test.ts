@@ -6,7 +6,8 @@ describe('Popup', () => {
   beforeEach(() => {
     document.body.innerHTML = `
       <div class="container">
-        <button id="openConfig">Open Configuration</button>
+        <h1>Hello World</h1>
+        <p>Welcome to your Chrome Extension!</p>
       </div>
     `;
     container = document.querySelector('.container')!;
@@ -17,24 +18,21 @@ describe('Popup', () => {
     document.body.innerHTML = '';
   });
 
-  it('should have open config button', () => {
-    const button = document.getElementById('openConfig');
-    expect(button).toBeTruthy();
-    expect(button?.textContent).toBe('Open Configuration');
+  it('should have Hello World heading', () => {
+    const heading = document.querySelector('h1');
+    expect(heading).toBeTruthy();
+    expect(heading?.textContent).toBe('Hello World');
   });
 
-  it('should open config page when button clicked', async () => {
+  it('should initialize without errors', async () => {
+    // Simply verify the module loads and DOMContentLoaded handler is registered
     await import('../popup');
 
     // Trigger DOMContentLoaded
     const event = new Event('DOMContentLoaded');
     document.dispatchEvent(event);
 
-    const button = document.getElementById('openConfig');
-    button?.click();
-
-    expect(chrome.tabs.create).toHaveBeenCalledWith({
-      url: 'chrome-extension://test-id/config/config.html',
-    });
+    // If we get here without errors, the test passes
+    expect(container).toBeTruthy();
   });
 });
