@@ -12,16 +12,16 @@ export const test = base.extend<TestFixtures>({
 
     // Launch browser with extension
     const context = await chromium.launchPersistentContext('', {
-      headless: false, // Extensions only work in headed mode
+      headless: false, // Must be false for extensions, but we use --headless=new in args
       args: [
         `--disable-extensions-except=${pathToExtension}`,
         `--load-extension=${pathToExtension}`,
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
+        '--headless=new', // Enable new headless mode which supports extensions
       ],
-      // Use chromium channel for better extension support
-      channel: process.env.CI ? undefined : 'chrome',
+      // Don't specify channel to use bundled Chromium
     });
 
     await use(context);
