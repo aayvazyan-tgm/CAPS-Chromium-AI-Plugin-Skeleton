@@ -1,0 +1,6 @@
+[submodule "examples/candy-counter-sidebar"]
+	path = examples/candy-counter-sidebar
+	url = https://github.com/aayvazyan-tgm/chrome-plugin-example-impl-1-candy-counter-sidebar
+[submodule "examples/countdown-timer"]
+	path = examples/countdown-timer
+	url = https://github.com/aayvazyan-tgm/chrome-plugin-example-impl-2-countown-timer
