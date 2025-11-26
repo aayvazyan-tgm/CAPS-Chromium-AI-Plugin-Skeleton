@@ -39,6 +39,15 @@ npm run check       # Type-check, lint, format, and test
 - Parallel jobs for linting, testing, and E2E tests
 - Automatic release artifact generation on main branch
 
+## Implementation Examples 📚
+
+See what you can build with this skeleton — both examples were built with a single prompt, no intervention required:
+
+| Example | Description | Repository |
+|---------|-------------|------------|
+| 🍬 Candy Counter Sidebar | A sidebar extension that counts candies on web pages | [chrome-plugin-example-impl-1-candy-counter-sidebar](https://github.com/aayvazyan-tgm/chrome-plugin-example-impl-1-candy-counter-sidebar) |
+| ⏱️ Countdown Timer | A countdown timer extension with notifications | [chrome-plugin-example-impl-2-countown-timer](https://github.com/aayvazyan-tgm/chrome-plugin-example-impl-2-countown-timer) |
+
 ## Quick Start
 
 ```bash

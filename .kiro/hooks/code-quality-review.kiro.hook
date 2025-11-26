@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "name": "Code Quality & Test Runner",
+  "description": "When code changes are detected, analyzes for optimization opportunities (large classes, nested methods, separation of concerns), updates documentation, runs unit tests, and verifies npm check passes.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "src/**/*.ts"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Review the changed code for optimization opportunities:\n1. Check if any classes have grown too large (consider splitting if >200 lines or >5 public methods)\n2. Identify deeply nested methods (>3 levels) that should be refactored\n3. Verify separation of concerns is maintained (single responsibility principle)\n4. Update relevant documentation (README.md, inline comments, JSDoc) if the changes warrant it\n5. Run the unit tests with `npm test` and report results\n6. Run `npm run check` to verify linting and type checking pass\n\nProvide a summary of findings and any refactoring suggestions.\nFix your findings."
+  },
+  "workspaceFolderName": "ChromeExtensionSkeletton",
+  "shortName": "code-quality-review"
+}
