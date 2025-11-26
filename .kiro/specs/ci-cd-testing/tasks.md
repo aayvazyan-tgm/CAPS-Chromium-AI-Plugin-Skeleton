@@ -1,0 +1,216 @@
+# Implementation Plan
+
+- [x] 1. Install testing dependencies
+  - Install Jest, ts-jest, @types/jest for unit testing
+  - Install Playwright and @playwright/test for E2E testing
+  - Install @testing-library/jest-dom for DOM assertions
+  - Update package.json with all testing dependencies
+  - _Requirements: 1.1, 1.2, 5.1_
+
+- [x] 2. Configure Jest for unit testing
+  - Create jest.config.js with TypeScript support
+  - Configure test environment as 'node'
+  - Set up test file patterns for __tests__ directories
+  - Configure coverage collection for source files
+  - Exclude test files and type definitions from coverage
+  - Set coverage output directory and reporters
+  - Add module name mapper for CSS imports
+  - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5_
+
+- [x] 3. Create Chrome API mocks for testing
+  - Create src/test-setup.ts file
+  - Implement mock for chrome.runtime.onInstalled
+  - Implement mock for chrome.runtime.onMessage
+  - Implement mock for chrome.runtime.getURL
+  - Implement mock for chrome.storage.sync.get
+  - Implement mock for chrome.storage.sync.set
+  - Implement mock for chrome.tabs.create
+  - Declare global chrome type for TypeScript
+  - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
+
+- [x] 4. Write unit tests for background service worker
+  - Create src/background/__tests__/background.test.ts
+  - Import test-setup.ts for Chrome API mocks
+  - Write test to verify onInstalled listener registration
+  - Write test to verify default settings initialization on install
+  - Write test to verify update event logging
+  - Write test to verify message handler registration
+  - Write test to verify Chrome Storage API calls with correct parameters
+  - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5_
+
+- [x] 5. Write unit tests for popup component
+  - Create src/popup/__tests__/popup.test.ts
+  - Import test-setup.ts for Chrome API mocks
+  - Set up DOM with popup HTML structure in beforeEach
+  - Write test to verify "Open Configuration" button exists
+  - Write test to verify button click calls chrome.tabs.create
+  - Write test to verify correct URL is passed to chrome.tabs.create
+  - Write test to verify DOM structure matches template
+  - Clean up DOM in afterEach
+  - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
+
+- [x] 6. Configure Playwright for E2E testing
+  - Create playwright.config.ts
+  - Set testDir to './e2e' and testMatch pattern
+  - Configure fullyParallel, retries, and workers
+  - Set forbidOnly based on CI environment
+  - Configure reporters (HTML, JUnit, list)
+  - Enable trace, screenshot, and video on failure
+  - Set outputDir for test results
+  - Configure Desktop Chrome project
+  - _Requirements: 5.1, 5.2, 5.3, 5.5_
+
+- [x] 7. Create Playwright test fixtures for extension loading
+  - Create e2e/fixtures.ts
+  - Define TestFixtures interface with context and extensionId
+  - Implement context fixture that launches Chrome with extension
+  - Configure launchPersistentContext with extension loading args
+  - Set headless to false for extension support
+  - Add --no-sandbox and --disable-setuid-sandbox flags
+  - Implement extensionId fixture that extracts ID from service worker
+  - Wait for service worker to be ready with timeout
+  - Export custom test and expect from fixtures
+  - _Requirements: 5.2, 5.4, 6.1, 6.2, 6.3, 6.4, 6.5_
+
+- [x] 8. Write E2E tests for extension loading
+  - Create e2e/extension.spec.ts
+  - Import test and expect from fixtures
+  - Write test to navigate to popup URL
+  - Write test to verify popup displays "Hello World" heading
+  - Write test to verify "Open Configuration" button is visible
+  - Write test to verify button text is correct
+  - Wait for networkidle state before assertions
+  - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
+
+- [x] 9. Write E2E tests for page navigation
+  - Write test to open popup and click "Open Configuration" button
+  - Use Promise.all to wait for new page creation
+  - Verify new tab URL contains "config/config.html"
+  - Verify configuration page displays "Hello World" heading
+  - Verify configuration page contains descriptive text
+  - Verify configuration page contains visible checkbox
+  - Test checkbox interaction by clicking
+  - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5_
+
+- [x] 10. Write E2E tests for settings persistence
+  - Write test to open configuration page directly
+  - Locate checkbox element by ID
+  - Toggle checkbox to unchecked state if checked
+  - Verify checkbox is unchecked
+  - Reload the page
+  - Verify checkbox state persists after reload
+  - Handle cases where Chrome Storage may not work in test environment
+  - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5_
+
+- [x] 11. Create GitHub Actions build workflow
+  - Create .github/workflows/build.yml
+  - Configure triggers for push to main/develop and pull requests
+  - Set up matrix strategy for Node.js 18.x and 20.x
+  - Add checkout step with actions/checkout@v4
+  - Add Node.js setup with actions/setup-node@v4
+  - Add npm ci step to install dependencies
+  - Add npm run build step to compile extension
+  - Add verification step to check dist files exist
+  - Add artifact upload step with 7-day retention
+  - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7_
+
+- [x] 12. Create GitHub Actions verify workflow
+  - Create .github/workflows/verify.yml
+  - Configure triggers for push and pull requests
+  - Add checkout and Node.js setup steps
+  - Add npm ci step
+  - Add type-check step running npm run type-check
+  - Add lint step running npm run lint
+  - Add format check step running npm run format:check
+  - Add unit test step running npm test with coverage
+  - Add coverage artifact upload with 7-day retention
+  - _Requirements: 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7_
+
+- [x] 13. Create GitHub Actions E2E workflow
+  - Create .github/workflows/e2e.yml
+  - Configure triggers for push and pull requests
+  - Add checkout and Node.js setup steps
+  - Add npm ci step
+  - Add build step to compile extension
+  - Add Playwright browser installation with --with-deps flag
+  - Add E2E test step running npm run test:e2e
+  - Set CI environment variable to true
+  - Add Playwright report upload with 30-day retention
+  - Add test results upload with 30-day retention
+  - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 12.7_
+
+- [x] 14. Create composite CI workflow
+  - Create .github/workflows/ci.yml
+  - Configure triggers for push, pull requests, and workflow_dispatch
+  - Add concurrency control to cancel in-progress runs
+  - Add build job that uses build.yml workflow
+  - Add verify job that uses verify.yml and depends on build
+  - Add e2e job that uses e2e.yml and depends on build
+  - Add release job that runs only on main branch
+  - In release job, build extension and create zip file
+  - Upload release zip with 90-day retention
+  - _Requirements: 13.1, 13.2, 13.3, 13.4, 13.5, 13.6, 13.7_
+
+- [x] 15. Add npm scripts for testing
+  - Add "test" script to run Jest once
+  - Add "test:watch" script to run Jest in watch mode
+  - Add "test:coverage" script to run Jest with coverage
+  - Add "test:e2e" script to run Playwright tests
+  - Add "test:e2e:headed" script to run Playwright in headed mode
+  - Add "test:e2e:debug" script to run Playwright in debug mode
+  - Add "test:e2e:ui" script to run Playwright UI mode
+  - Add "check" script to run all checks (type-check, lint, format, test)
+  - Add "ci" script to run check, build, and E2E tests
+  - _Requirements: 14.1, 14.2, 14.3, 14.4, 14.5, 14.6, 14.7, 14.8_
+
+- [x] 16. Create test helper script
+  - Create scripts/test-extension-locally.sh
+  - Add shebang for bash
+  - Add echo statements for progress indication
+  - Add npm run clean command
+  - Add npm run build command
+  - Add npm test command for unit tests
+  - Add npm run test:e2e:headed command for E2E tests
+  - Add success message at end
+  - Make script executable with chmod +x
+  - _Requirements: 15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 15.7_
+
+- [x] 17. Create CI/CD documentation
+  - Create docs/CI_CD.md file
+  - Add overview section describing GitHub Actions usage
+  - Document build workflow purpose and triggers
+  - Document verify workflow purpose and checks
+  - Document E2E workflow purpose and process
+  - Add section on running tests locally with npm scripts
+  - Add section on debugging E2E tests with Playwright tools
+  - Add troubleshooting section for common issues
+  - Document extension loading issues and solutions
+  - Document test timeout issues and solutions
+  - Document CI failure debugging approaches
+  - Add notes for developers on best practices
+  - _Requirements: 16.1, 16.2, 16.3, 16.4, 16.5, 16.6, 16.7_
+
+- [x] 18. Create Dependabot configuration
+  - Create .github/dependabot.yml
+  - Configure npm package ecosystem updates
+  - Set schedule to weekly
+  - Set open pull request limit to 10
+  - Configure GitHub Actions ecosystem updates
+  - Set schedule to weekly for actions
+  - _Requirements: 13.1_
+
+- [x] 19. Final checkpoint - Verify complete testing infrastructure
+  - Run npm install to install all dependencies
+  - Run npm test to verify unit tests pass
+  - Run npm run build to compile extension
+  - Run npm run test:e2e:headed to verify E2E tests pass
+  - Run npm run check to verify all checks pass
+  - Verify jest.config.js is properly configured
+  - Verify playwright.config.ts is properly configured
+  - Verify all GitHub Actions workflows are valid YAML
+  - Push to GitHub and verify workflows trigger
+  - Verify build workflow passes on multiple Node versions
+  - Verify verify workflow runs all checks
+  - Verify E2E workflow runs tests and uploads reports
+  - Verify artifacts are uploaded and accessible
+  - _Requirements: All_
