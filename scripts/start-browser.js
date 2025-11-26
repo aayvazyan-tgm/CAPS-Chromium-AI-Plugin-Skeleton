@@ -29,6 +29,7 @@ const fs = require('fs');
         `--load-extension=${pathToExtension}`,
         '--no-first-run',
         '--no-default-browser-check',
+        '--remote-debugging-port=9222',
       ],
     });
 
@@ -36,6 +37,8 @@ const fs = require('fs');
 
     console.log('\n✓ Browser started successfully!');
     console.log('✓ Extension is loaded and ready for testing.');
+    console.log('✓ Remote debugging enabled on port 9222');
+    console.log('  CDP endpoint: http://localhost:9222');
     console.log('\nPress Ctrl+C to stop the browser.\n');
 
     // Wait for service worker to be ready (Manifest V3)
@@ -57,7 +60,7 @@ const fs = require('fs');
       console.log('Extension Information:');
       console.log(`  Extension ID: ${extensionId}`);
       console.log(`  Popup URL: chrome-extension://${extensionId}/popup/popup.html`);
-      console.log(`  Config URL: chrome-extension://${extensionId}/config/config.html\n`);
+      console.log(`  Options URL: chrome-extension://${extensionId}/options/options.html\n`);
     }
 
     // Handle cleanup on exit

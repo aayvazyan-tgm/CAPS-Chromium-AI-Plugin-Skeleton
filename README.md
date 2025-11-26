@@ -157,4 +157,4 @@ Handles extension lifecycle events, installation, and default settings initializ
 
 ## License
 
-UNLICENSED - All rights reserved
+Apache License, Version 2.0 - See [LICENSE](LICENSE) for details.
