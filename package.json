@@ -7,7 +7,6 @@
     "dev": "webpack --config webpack.dev.js",
     "dev:once": "webpack --config webpack.dev.js --no-watch",
     "start": "npm run dev:once && node scripts/start-browser.js",
-    "start:chromium": "npm run dev:once && node scripts/start-chromium.js",
     "clean": "rimraf dist coverage playwright-report test-results",
     "lint": "run-s type-check format:check lint:eslint",
     "lint:eslint": "eslint src/**/*.ts --max-warnings=0",
